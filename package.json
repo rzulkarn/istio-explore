@@ -1,0 +1,12 @@
+{
+  "name": "nodejs-proxy",
+  "version": "1.0.0",
+  "description": "My First Proxy",
+  "main": "proxy.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node proxy.js"
+  },
+  "author": "Rudy Zulkarnain",
+  "license": "MIT"
+}
