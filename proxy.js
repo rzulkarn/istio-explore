@@ -6,7 +6,30 @@ function notFound(res) {
     res.end("404: Missing URL, file not found");
 }
 
-http.createServer(function(b_req, b_res) {
+var regex_hostport = /^([^:]+)(:([0-9]+))?$/;
+var regex_url = /\S+\b(\S+)/;
+var FindProxyForURL;
+
+function getUrlHeader(data) {
+	return regex_url.exec(data)[0];
+
+}
+function getHostPortFromString(hostString, defaultPort) {
+	var host = hostString;
+	var port = defaultPort;
+
+	var result = regex_hostport.exec(hostString);
+	if (result != null) {
+		host = result[1];
+		if (result[2] != null) {
+			port = result[3];
+		}
+	}
+
+	return ([ host, port ]);
+}
+
+const server = http.createServer(function(b_req, b_res) {
 
     // Parser the request's url
     var b_url = url.parse(b_req.url, true);
@@ -58,3 +81,14 @@ http.createServer(function(b_req, b_res) {
 }).listen(3000, "127.0.0.1");
 
 console.log("Server running at http://127.0.0.1:3000/");
+
+server.on('connect', (req, socket, body) => {
+    console.log('new connect event');
+
+    var url = req['url'];
+    console.log(url);
+
+    var hostport = getHostPortFromString(url, 443);
+    console.log(hostport);
+
+});
