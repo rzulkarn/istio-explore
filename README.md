@@ -1,4 +1,5 @@
-## my-first-simple-proxy
+## Javascript: my-first-simple-proxy
+* Need: npm node nodemon
 * Run the server: nodemon start
 * Browser: http://127.0.0.1:3000/?url=http://www.cisco.com
 
